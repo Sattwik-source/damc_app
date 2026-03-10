@@ -1,16 +1,14 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'register_page.dart';
-import 'forgot_password_page.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage>
+class _RegisterPageState extends State<RegisterPage>
     with SingleTickerProviderStateMixin {
   late AnimationController controller;
   late Animation<double> animation;
@@ -30,8 +28,6 @@ class _LoginPageState extends State<LoginPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
-
       body: AnimatedBuilder(
         animation: animation,
         builder: (context, child) {
@@ -74,24 +70,35 @@ class _LoginPageState extends State<LoginPage>
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            /// LOGO
-                            Image.asset("assets/logo/damc_logo.png", width: 90),
+                            Image.asset("assets/logo/damc_logo.png", width: 80),
 
                             const SizedBox(height: 10),
 
                             const Text(
-                              "DAMC",
+                              "Create Account",
                               style: TextStyle(
-                                fontSize: 26,
+                                fontSize: 24,
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
-                                letterSpacing: 2,
                               ),
                             ),
 
-                            const SizedBox(height: 30),
+                            const SizedBox(height: 25),
 
-                            /// EMAIL FIELD
+                            TextField(
+                              decoration: InputDecoration(
+                                hintText: "Full Name",
+                                filled: true,
+                                fillColor: Colors.white,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                  borderSide: BorderSide.none,
+                                ),
+                              ),
+                            ),
+
+                            const SizedBox(height: 15),
+
                             TextField(
                               decoration: InputDecoration(
                                 hintText: "Email",
@@ -106,7 +113,6 @@ class _LoginPageState extends State<LoginPage>
 
                             const SizedBox(height: 15),
 
-                            /// PASSWORD FIELD
                             TextField(
                               obscureText: true,
                               decoration: InputDecoration(
@@ -122,7 +128,6 @@ class _LoginPageState extends State<LoginPage>
 
                             const SizedBox(height: 25),
 
-                            /// LOGIN BUTTON
                             SizedBox(
                               width: double.infinity,
                               height: 50,
@@ -138,7 +143,7 @@ class _LoginPageState extends State<LoginPage>
                                 onPressed: () {},
 
                                 child: const Text(
-                                  "LOGIN",
+                                  "REGISTER",
                                   style: TextStyle(
                                     fontSize: 18,
                                     color: Colors.black,
@@ -150,42 +155,13 @@ class _LoginPageState extends State<LoginPage>
 
                             const SizedBox(height: 15),
 
-                            /// FORGOT PASSWORD
                             GestureDetector(
                               onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const ForgotPasswordPage(),
-                                  ),
-                                );
+                                Navigator.pop(context);
                               },
 
                               child: const Text(
-                                "Forgot Password?",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-
-                            const SizedBox(height: 10),
-
-                            /// REGISTER OPTION
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const RegisterPage(),
-                                  ),
-                                );
-                              },
-
-                              child: const Text(
-                                "Don't have an account? Register",
+                                "Already have an account? Login",
                                 style: TextStyle(color: Colors.white70),
                               ),
                             ),
