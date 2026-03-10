@@ -1,139 +1,168 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage>
+    with SingleTickerProviderStateMixin {
+  late AnimationController controller;
+  late Animation<double> animation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 10),
+    )..repeat(reverse: true);
+
+    animation = Tween<double>(begin: 0, end: 1).animate(controller);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xff0f2027), Color(0xff203a43), Color(0xff2c5364)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30),
-            child: Column(
-              children: [
-                const SizedBox(height: 60),
+      resizeToAvoidBottomInset: true,
 
-                // Logo
-                const Icon(
-                  Icons.account_balance,
-                  size: 80,
-                  color: Colors.white,
-                ),
-
-                const SizedBox(height: 15),
-
-                const Text(
-                  "DAMC",
-                  style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    letterSpacing: 2,
-                  ),
-                ),
-
-                const SizedBox(height: 60),
-
-                // Email Field
-                TextField(
-                  decoration: InputDecoration(
-                    hintText: "Email",
-                    filled: true,
-                    fillColor: Colors.white,
-                    prefixIcon: const Icon(Icons.email),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                ),
-
-                const SizedBox(height: 20),
-
-                // Password Field
-                TextField(
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    hintText: "Password",
-                    filled: true,
-                    fillColor: Colors.white,
-                    prefixIcon: const Icon(Icons.lock),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                ),
-
-                const SizedBox(height: 15),
-
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
-                    onPressed: () {},
-                    child: const Text(
-                      "Forgot Password?",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ),
-
-                const SizedBox(height: 20),
-
-                // Login Button
-                SizedBox(
-                  width: double.infinity,
-                  height: 55,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xff00c853),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                    ),
-                    child: const Text(
-                      "LOGIN",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-
-                const SizedBox(height: 20),
-
-                // Signup
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Text(
-                      "Don't have an account? ",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    Text(
-                      "Sign Up",
-                      style: TextStyle(
-                        color: Colors.greenAccent,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+      body: AnimatedBuilder(
+        animation: animation,
+        builder: (context, child) {
+          return Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment(-1 + animation.value, -1),
+                end: Alignment(1 - animation.value, 1),
+                colors: const [
+                  Color(0xff0f2027),
+                  Color(0xff203a43),
+                  Color(0xff2c5364),
+                ],
+              ),
             ),
-          ),
-        ),
+
+            child: Center(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(25),
+
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+
+                      child: Container(
+                        width: 350,
+                        padding: const EdgeInsets.all(25),
+
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.15),
+                          borderRadius: BorderRadius.circular(25),
+                          border: Border.all(
+                            color: Colors.white.withOpacity(0.3),
+                          ),
+                        ),
+
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(
+                              Icons.account_balance,
+                              size: 60,
+                              color: Colors.white,
+                            ),
+
+                            const SizedBox(height: 10),
+
+                            const Text(
+                              "DAMC",
+                              style: TextStyle(
+                                fontSize: 28,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+
+                            const SizedBox(height: 30),
+
+                            TextField(
+                              decoration: InputDecoration(
+                                hintText: "Email",
+                                filled: true,
+                                fillColor: Colors.white,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                  borderSide: BorderSide.none,
+                                ),
+                              ),
+                            ),
+
+                            const SizedBox(height: 15),
+
+                            TextField(
+                              obscureText: true,
+                              decoration: InputDecoration(
+                                hintText: "Password",
+                                filled: true,
+                                fillColor: Colors.white,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                  borderSide: BorderSide.none,
+                                ),
+                              ),
+                            ),
+
+                            const SizedBox(height: 25),
+
+                            SizedBox(
+                              width: double.infinity,
+                              height: 50,
+
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.greenAccent,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                ),
+
+                                onPressed: () {
+                                  FocusScope.of(context).unfocus();
+                                },
+
+                                child: const Text(
+                                  "LOGIN",
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+
+                            const SizedBox(height: 15),
+
+                            const Text(
+                              "Forgot Password?",
+                              style: TextStyle(color: Colors.white70),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
