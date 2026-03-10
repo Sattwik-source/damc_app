@@ -1,31 +1,8 @@
 import 'dart:ui';
-import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
-class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
-
-  @override
-  State<LoginPage> createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage>
-    with SingleTickerProviderStateMixin {
-  late AnimationController controller;
-  late Animation<double> animation;
-
-  @override
-  void initState() {
-    super.initState();
-
-    controller = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 10),
-    )..repeat(reverse: true);
-
-    animation = Tween<double>(begin: 0, end: 1).animate(controller);
-  }
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -111,7 +88,6 @@ class _LoginPageState extends State<LoginPage>
                             ),
 
                             const SizedBox(height: 30),
-                            const SizedBox(height: 30),
 
                             TextField(
                               decoration: InputDecoration(
@@ -124,19 +100,7 @@ class _LoginPageState extends State<LoginPage>
                                 ),
                               ),
                             ),
-                            TextField(
-                              decoration: InputDecoration(
-                                hintText: "Email",
-                                filled: true,
-                                fillColor: Colors.white,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20),
-                                  borderSide: BorderSide.none,
-                                ),
-                              ),
-                            ),
 
-                            const SizedBox(height: 15),
                             const SizedBox(height: 15),
 
                             TextField(
@@ -151,20 +115,7 @@ class _LoginPageState extends State<LoginPage>
                                 ),
                               ),
                             ),
-                            TextField(
-                              obscureText: true,
-                              decoration: InputDecoration(
-                                hintText: "Password",
-                                filled: true,
-                                fillColor: Colors.white,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20),
-                                  borderSide: BorderSide.none,
-                                ),
-                              ),
-                            ),
 
-                            const SizedBox(height: 25),
                             const SizedBox(height: 25),
 
                             SizedBox(
@@ -200,24 +151,12 @@ class _LoginPageState extends State<LoginPage>
                             ),
                           ],
                         ),
-                            const SizedBox(height: 15),
-
-                            const Text(
-                              "Forgot Password?",
-                              style: TextStyle(color: Colors.white70),
-                            ),
-                          ],
-                        ),
                       ),
                     ),
                   ),
-                  ),
                 ),
               ),
-              ),
             ),
-          );
-        },
           );
         },
       ),
