@@ -1,22 +1,18 @@
 import 'package:flutter/material.dart';
-import 'login_page.dart';
+import 'splash_screen.dart';
 
 void main() {
-  runApp(const DAMCApp());
+  runApp(const MyApp());
 }
 
-class DAMCApp extends StatelessWidget {
-  const DAMCApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'DAMC',
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-      ),
-      home: const LoginPage(),
+      home: SplashScreen(),
     );
   }
 }
