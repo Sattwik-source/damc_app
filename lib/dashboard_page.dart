@@ -1,16 +1,65 @@
 import 'package:flutter/material.dart';
+import 'invest_page.dart';
 
-class DashboardPage extends StatelessWidget {
+class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
 
   @override
+  State<DashboardPage> createState() => _DashboardPageState();
+}
+
+class _DashboardPageState extends State<DashboardPage> {
+  int currentIndex = 0;
+
+  @override
   Widget build(BuildContext context) {
+    List<Widget> pages = [
+      homeDashboard(),
+      const InvestPage(),
+      const Center(child: Text("Profile Page")),
+    ];
+
+    return Scaffold(
+      body: pages[currentIndex],
+
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: currentIndex,
+
+        onTap: (index) {
+          setState(() {
+            currentIndex = index;
+          });
+        },
+
+        backgroundColor: const Color(0xff0f9b6f),
+
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white70,
+
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.dashboard),
+            label: "Dashboard",
+          ),
+
+          BottomNavigationBarItem(
+            icon: Icon(Icons.show_chart),
+            label: "Investments",
+          ),
+
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+        ],
+      ),
+    );
+  }
+
+  /// DASHBOARD PAGE
+  Widget homeDashboard() {
     return Scaffold(
       backgroundColor: const Color(0xff0f3d2e),
 
       appBar: AppBar(
         backgroundColor: const Color(0xff0f9b6f),
-        elevation: 0,
         title: const Text("DAMC Dashboard"),
         centerTitle: true,
       ),
@@ -34,9 +83,9 @@ class DashboardPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
               ),
 
-              child: Column(
+              child: const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   Text(
                     "Total Portfolio Value",
                     style: TextStyle(color: Colors.white70, fontSize: 16),
@@ -65,23 +114,43 @@ class DashboardPage extends StatelessWidget {
 
             const SizedBox(height: 25),
 
-            /// ACTION BUTTONS
+            /// TOP DASHBOARD BUTTONS
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _dashboardButton(Icons.trending_up, "Invest"),
+                dashboardButton(
+                  context,
+                  Icons.trending_up,
+                  "Invest",
+                  const InvestPage(),
+                ),
 
-                _dashboardButton(Icons.account_balance_wallet, "Withdraw"),
+                dashboardButton(
+                  context,
+                  Icons.account_balance_wallet,
+                  "Withdraw",
+                  const Center(child: Text("Withdraw Page")),
+                ),
 
-                _dashboardButton(Icons.history, "History"),
+                dashboardButton(
+                  context,
+                  Icons.history,
+                  "History",
+                  const Center(child: Text("History Page")),
+                ),
 
-                _dashboardButton(Icons.person, "Profile"),
+                dashboardButton(
+                  context,
+                  Icons.person,
+                  "Profile",
+                  const Center(child: Text("Profile Page")),
+                ),
               ],
             ),
 
             const SizedBox(height: 30),
 
-            /// RECENT TRANSACTIONS
+            /// TRANSACTIONS
             const Text(
               "Recent Transactions",
               style: TextStyle(
@@ -133,52 +202,39 @@ class DashboardPage extends StatelessWidget {
           ],
         ),
       ),
-
-      /// BOTTOM NAVIGATION
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color(0xff0f9b6f),
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.white70,
-
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard),
-            label: "Dashboard",
-          ),
-
-          BottomNavigationBarItem(
-            icon: Icon(Icons.show_chart),
-            label: "Investments",
-          ),
-
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle),
-            label: "Profile",
-          ),
-        ],
-      ),
     );
   }
 
   /// DASHBOARD BUTTON WIDGET
-  Widget _dashboardButton(IconData icon, String text) {
-    return Column(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(15),
+  Widget dashboardButton(
+    BuildContext context,
+    IconData icon,
+    String text,
+    Widget page,
+  ) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => page));
+      },
 
-          decoration: BoxDecoration(
-            color: const Color(0xff1dbf73),
-            borderRadius: BorderRadius.circular(15),
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(15),
+
+            decoration: BoxDecoration(
+              color: const Color(0xff1dbf73),
+              borderRadius: BorderRadius.circular(15),
+            ),
+
+            child: Icon(icon, color: Colors.white),
           ),
 
-          child: Icon(icon, color: Colors.white),
-        ),
+          const SizedBox(height: 5),
 
-        const SizedBox(height: 5),
-
-        Text(text, style: const TextStyle(color: Colors.white)),
-      ],
+          Text(text, style: const TextStyle(color: Colors.white)),
+        ],
+      ),
     );
   }
 }
